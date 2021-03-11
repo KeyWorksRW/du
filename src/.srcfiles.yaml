@@ -1,0 +1,24 @@
+# Updated by ttBld.exe version 1.7 -- see https://github.com/KeyWorksRW/ttBld
+
+Options:
+    Project:          du       # project name
+    exe_type:         console  # [window | console | lib | dll]
+    PCH:              pch.h    # "none" or name of header file to use for precompilation
+    Optimize:         space    # [space | speed] optimization
+    Warn:             4        # [1-4]
+    Crt_rel:          dll      # [static | dll] type of CRT to link to in release builds
+    Crt_dbg:          dll      # [static | dll] type of CRT to link to in debug builds
+    Ms_linker:        true     # true means use link.exe even when compiling with clang
+
+    CFlags_cmn:       -std:c++17 /Zc:__cplusplus /utf-8
+
+    TargetDir:        ../bin
+
+    Natvis:           ../../ttLib/ttlibwin.natvis
+
+    IncDirs:          ../../ttLib/include
+    BuildLibs:        ../../ttLib
+
+Files:
+    mainapp.cpp
+    strings.cpp
