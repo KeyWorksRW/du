@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Purpose:   Gets disk usage information about one or more directories
 // Author:    Randalph
-// Copyright: Copyright (c) 2018-2020
+// Copyright: Copyright (c) 2018-2021 KeyWorks Software (Ralph Walden)
 // License:   Apache License -- see ../LICENSE
 /////////////////////////////////////////////////////////////////////////////
 
@@ -57,9 +57,9 @@ int main(int /* argc */, char** /* argv */)
 
     if (parseAllDirs)
     {
-        // directories needs to be the final list of directories to check. If we're asked to parse all directories, then
-        // that will include any directories passed to us on the command line -- so we clear it here and add to it as we
-        // parse all the command-line directories.
+        // directories needs to be the final list of directories to check. If we're asked to parse all directories, then that
+        // will include any directories passed to us on the command line -- so we clear it here and add to it as we parse all
+        // the command-line directories.
 
         directories.clear();
 
@@ -138,11 +138,13 @@ int main(int /* argc */, char** /* argv */)
 
     if (cmd.isOption("size"))
     {
-        std::sort(results.begin(), results.end(), [](const FILE_SIZES& a, const FILE_SIZES& b) { return (a.true_size < b.true_size); });
+        std::sort(results.begin(), results.end(),
+                  [](const FILE_SIZES& a, const FILE_SIZES& b) { return (a.true_size < b.true_size); });
     }
     else
     {
-        std::sort(results.begin(), results.end(), [](const FILE_SIZES& a, const FILE_SIZES& b) { return (a.name < b.name); });
+        std::sort(results.begin(), results.end(),
+                  [](const FILE_SIZES& a, const FILE_SIZES& b) { return (a.name < b.name); });
     }
 
     for (auto& iter: results)
@@ -156,7 +158,8 @@ int main(int /* argc */, char** /* argv */)
 
     if (results.size() > 1)
     {
-        std::cout << ttlib::cstr().Format("\nTotal: %ku files, %ku folders, %kllu bytes", total_files, total_folders, total_true_size);
+        std::cout << ttlib::cstr().Format("\nTotal: %ku files, %ku folders, %kllu bytes", total_files, total_folders,
+                                          total_true_size);
     }
 
     return 0;
