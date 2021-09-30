@@ -1,24 +1,42 @@
 # Updated by ttBld.exe version 1.7 -- see https://github.com/KeyWorksRW/ttBld
 
 Options:
-    Project:          du       # project name
-    exe_type:         console  # [window | console | lib | dll]
-    PCH:              pch.h    # "none" or name of header file to use for precompilation
-    Optimize:         space    # [space | speed] optimization
-    Warn:             4        # [1-4]
-    Crt_rel:          dll      # [static | dll] type of CRT to link to in release builds
-    Crt_dbg:          dll      # [static | dll] type of CRT to link to in debug builds
-    Ms_linker:        true     # true means use link.exe even when compiling with clang
+    Project:        du       # project name
+    exe_type:       console  # [window | console | lib | dll]
+    PCH:            pch.h    # "none" or name of header file to use for precompilation
+    Optimize:       space    # [space | speed] optimization
+    Warn:           4        # [1-4]
+    Crt_rel:        dll      # [static | dll] type of CRT to link to in release builds
+    Crt_dbg:        dll      # [static | dll] type of CRT to link to in debug builds
+    Ms_linker:      false     # true means use link.exe even when compiling with clang
 
-    CFlags_cmn:       -std:c++17 /Zc:__cplusplus /utf-8
+    CFlags_cmn:     -std:c++17 /Zc:__cplusplus /utf-8
 
-    TargetDir:        ../bin
+    TargetDir:      ../bin
+    TargetDir32:    bld/clang_Debug32    # clang-cl 32-bit target directory
 
-    Natvis:           ../../ttLib/ttlibwin.natvis
+    Natvis:         ../../ttLib/ttlibwin.natvis
 
-    IncDirs:          ../../ttLib/include
-    BuildLibs:        ../../ttLib
+    IncDirs:        ./;../../ttLib/include
+    # BuildLibs:      ../../ttLib
 
 Files:
     mainapp.cpp
     strings.cpp
+
+    ../../ttlib/src/ttconsole.cpp      # Class for handling zero-terminated char strings.
+    ../../ttlib/src/ttcstr.cpp      # Class for handling zero-terminated char strings.
+    ../../ttlib/src/ttcview.cpp     # string_view functionality on a zero-terminated char string.
+    ../../ttlib/src/ttlibspace.cpp  # ttlib namespace functions
+    ../../ttlib/src/tttextfile.cpp  # Classes for reading and writing text files.
+    ../../ttlib/src/ttsview.cpp     # std::string_view with additional methods
+    ../../ttlib/src/ttcvector.cpp   # Vector class for storing ttlib::cstr strings
+    ../../ttlib/src/ttmultistr.cpp  # Breaks a single string into multiple strings
+    ../../ttlib/src/ttparser.cpp    # Command line parser
+    ../../ttlib/src/ttstrings.cpp
+
+    ../../ttlib/src/winsrc/ttwinspace.cpp      # Windows-only ttlib namespace functions
+    ../../ttlib/src/winsrc/ttloadstr.cpp       # Load a language-specific version of a string resource
+
+DebugFiles:
+    ../../ttlib/src/winsrc/ttdebug.cpp  # we use our own version of this to minimize Windows code requirements
