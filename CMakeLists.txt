@@ -35,27 +35,39 @@ if (NOT isMultiConfig)
     endif()
 endif()
 
+if (WIN32)
+    set(win_ttlib_sources
+        ../ttlib/src/winsrc/ttwinspace.cpp      # Windows-only ttlib namespace functions
+        ../ttlib/src/winsrc/ttloadstr.cpp       # Load a language-specific version of a string resource
+
+        $<$<CONFIG:Debug>:../ttlib/src/winsrc/ttdebug.cpp>  # we use our own version of this to minimize Windows code requirements
+        )
+endif()
+
+add_library(ttLib STATIC
+
+    ../ttLib/src/ttconsole.cpp          # class that sets/restores console foreground color
+    ../ttLib/src/ttcstr.cpp             # Class for handling zero-terminated char strings.
+    ../ttLib/src/ttcvector.cpp          # Vector class for storing ttlib::cstr strings
+    ../ttLib/src/ttcview.cpp            # string_view functionality on a zero-terminated char string.
+    ../ttLib/src/ttlibspace.cpp         # ttlib namespace functions
+    ../ttLib/src/ttmultistr.cpp         # Breaks a single string into multiple strings
+    ../ttLib/src/ttparser.cpp           # Command line parser
+    ../ttLib/src/ttstrings.cpp          # Class for handling zero-terminated char strings.
+    ../ttLib/src/ttsview.cpp            # std::string_view with additional methods
+    ../ttLib/src/tttextfile.cpp         # Classes for reading and writing text files.
+
+    ${win_ttlib_sources}
+
+)
+
 # Note the requirement that --config Debug is used to get the additional debug files
 add_executable(du
     src/mainapp.cpp
     src/strings.cpp
-
-    ../ttlib/src/ttconsole.cpp      # Class for handling zero-terminated char strings.
-    ../ttlib/src/ttcstr.cpp      # Class for handling zero-terminated char strings.
-    ../ttlib/src/ttcview.cpp     # string_view functionality on a zero-terminated char string.
-    ../ttlib/src/ttlibspace.cpp  # ttlib namespace functions
-    ../ttlib/src/tttextfile.cpp  # Classes for reading and writing text files.
-    ../ttlib/src/ttsview.cpp     # std::string_view with additional methods
-    ../ttlib/src/ttcvector.cpp   # Vector class for storing ttlib::cstr strings
-    ../ttlib/src/ttmultistr.cpp  # Breaks a single string into multiple strings
-    ../ttlib/src/ttparser.cpp    # Command line parser
-    ../ttlib/src/ttstrings.cpp
-
-    ../ttlib/src/winsrc/ttwinspace.cpp      # Windows-only ttlib namespace functions
-    ../ttlib/src/winsrc/ttloadstr.cpp       # Load a language-specific version of a string resource
-
-    $<$<CONFIG:Debug>:../ttlib/src/winsrc/ttdebug.cpp>  # we use our own version of this to minimize Windows code requirements
 )
+
+target_link_libraries(du PRIVATE ttLib)
 
 if (MSVC)
     # /GL -- combined with the Linker flag /LTCG to perform whole program optimization in Release build
@@ -67,9 +79,14 @@ if (MSVC)
 endif()
 
 target_precompile_headers(du PRIVATE "src/pch.h")
+target_precompile_headers(ttLib PRIVATE "src/pch.h")
 
-target_include_directories(du PRIVATE 
+target_include_directories(du PRIVATE
     src/
     ../ttLib/include
 )
 
+target_include_directories(ttLib PRIVATE
+    src/
+    ../ttLib/include
+)
