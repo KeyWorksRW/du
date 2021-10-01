@@ -5,15 +5,6 @@
 // License:   Apache License -- see ../LICENSE
 /////////////////////////////////////////////////////////////////////////////
 
-#include "pch.h"
-
-#include <iostream>
-
-#include <ttconsole.h>  // concolor -- Sets/restores console foreground color
-#include <ttcvector.h>  // cstrVector -- Vector of ttlib::cstr strings
-#include <ttparser.h>   // cmd -- Command line parser
-#include <ttwinff.h>    // Wrapper around Windows FindFile
-
 #if defined(_WIN32)
 
     #pragma comment(lib, "kernel32.lib")
@@ -27,6 +18,13 @@
     #pragma comment(lib, "advapi32.lib")
 
 #endif
+
+#include <iostream>
+
+#include <ttconsole.h>  // concolor -- Sets/restores console foreground color
+#include <ttcvector.h>  // cstrVector -- Vector of ttlib::cstr strings
+#include <ttparser.h>   // cmd -- Command line parser
+#include <ttwinff.h>    // Wrapper around Windows FindFile
 
 #include "strings.h"  // Contains translatable string IDs
 
