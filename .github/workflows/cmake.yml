@@ -1,6 +1,6 @@
 name: CMake
 
-on: [pull_request]
+on: [push, pull_request]
 
 env:
   BUILD_TYPE: Release
@@ -26,3 +26,12 @@ jobs:
       with:
         name: du
         path: ${{github.workspace}}/build/Release/du.exe
+
+    - uses: actions/download-artifact@v2
+        id: download
+        with:
+          name: du
+          path: ${{github.workspace}}/build/Release/du.exe
+
+    - name: 'Echo download path'
+      run: echo ${{steps.download.outputs.download-path}}
