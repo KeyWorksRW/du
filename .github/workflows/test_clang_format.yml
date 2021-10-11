@@ -3,8 +3,11 @@ name: clang-format checker
 on:
   push:
     paths-ignore:
-    - .github
+    - .github/workflows
 
+  pull_request:
+    paths-ignore:
+    - .github/workflows
 
 jobs:
   build:
