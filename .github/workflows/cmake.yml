@@ -1,6 +1,6 @@
 name: CMake
 
-on: [pull_request]
+on: [push, pull_request]
 
 env:
   BUILD_TYPE: Release
@@ -19,3 +19,8 @@ jobs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: du
+          path: ${{github.workspace}}/build/Release/du.exe
