@@ -28,10 +28,6 @@ jobs:
         path: ${{github.workspace}}/build/Release/du.exe
 
     - uses: actions/download-artifact@v2
-        id: download
         with:
           name: du
           path: ${{github.workspace}}/build/Release/du.exe
-
-    - name: 'Echo download path'
-      run: echo ${{steps.download.outputs.download-path}}
