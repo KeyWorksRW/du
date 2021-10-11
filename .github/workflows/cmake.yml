@@ -22,12 +22,13 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: du
-        path: ${{github.workspace}}/build/Release/du.exe
-
-    - uses: actions/download-artifact@v2
+    - name: Upload du
+      uses: actions/upload-artifact@v2
         with:
           name: du
           path: ${{github.workspace}}/build/Release/du.exe
+
+    - name: Download du
+      uses: actions/download-artifact@v2
+        with:
+          name: du
