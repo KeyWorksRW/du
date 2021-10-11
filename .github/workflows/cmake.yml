@@ -23,6 +23,6 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - uses: actions/upload-artifact@v2
-        with:
-          name: du
-          path: ${{github.workspace}}/build/Release/du.exe
+      with:
+        name: du
+        path: ${{github.workspace}}/build/Release/du.exe
