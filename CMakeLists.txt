@@ -37,25 +37,25 @@ endif()
 
 if (WIN32)
     set(win_ttlib_sources
-        ../ttlib/src/winsrc/ttwinspace.cpp      # Windows-only ttlib namespace functions
-        ../ttlib/src/winsrc/ttloadstr.cpp       # Load a language-specific version of a string resource
+        ttlib/src/winsrc/ttwinspace.cpp      # Windows-only ttlib namespace functions
+        ttlib/src/winsrc/ttloadstr.cpp       # Load a language-specific version of a string resource
 
-        $<$<CONFIG:Debug>:../ttlib/src/winsrc/ttdebug.cpp>  # we use our own version of this to minimize Windows code requirements
+        $<$<CONFIG:Debug>:ttlib/src/winsrc/ttdebug.cpp>  # we use our own version of this to minimize Windows code requirements
         )
 endif()
 
 add_library(ttLib STATIC
 
-    ../ttLib/src/ttconsole.cpp          # class that sets/restores console foreground color
-    ../ttLib/src/ttcstr.cpp             # Class for handling zero-terminated char strings.
-    ../ttLib/src/ttcvector.cpp          # Vector class for storing ttlib::cstr strings
-    ../ttLib/src/ttcview.cpp            # string_view functionality on a zero-terminated char string.
-    ../ttLib/src/ttlibspace.cpp         # ttlib namespace functions
-    ../ttLib/src/ttmultistr.cpp         # Breaks a single string into multiple strings
-    ../ttLib/src/ttparser.cpp           # Command line parser
-    ../ttLib/src/ttstrings.cpp          # Class for handling zero-terminated char strings.
-    ../ttLib/src/ttsview.cpp            # std::string_view with additional methods
-    ../ttLib/src/tttextfile.cpp         # Classes for reading and writing text files.
+    ttLib/src/ttconsole.cpp          # class that sets/restores console foreground color
+    ttLib/src/ttcstr.cpp             # Class for handling zero-terminated char strings.
+    ttLib/src/ttcvector.cpp          # Vector class for storing ttlib::cstr strings
+    ttLib/src/ttcview.cpp            # string_view functionality on a zero-terminated char string.
+    ttLib/src/ttlibspace.cpp         # ttlib namespace functions
+    ttLib/src/ttmultistr.cpp         # Breaks a single string into multiple strings
+    ttLib/src/ttparser.cpp           # Command line parser
+    ttLib/src/ttstrings.cpp          # Class for handling zero-terminated char strings.
+    ttLib/src/ttsview.cpp            # std::string_view with additional methods
+    ttLib/src/tttextfile.cpp         # Classes for reading and writing text files.
 
     ${win_ttlib_sources}
 
@@ -75,7 +75,7 @@ if (MSVC)
     target_compile_options(du PRIVATE "$<$<CONFIG:Release>:/GL>" "/FC" "/W4" "/Zc:__cplusplus" "/utf-8")
     target_link_options(du PRIVATE "$<$<CONFIG:Release>:/LTCG>")
 
-    target_link_options(du PRIVATE "$<$<CONFIG:Debug>:/natvis:../../ttLib/ttlibwin.natvis>")
+    target_link_options(du PRIVATE "$<$<CONFIG:Debug>:/natvis:../ttLib/ttlibwin.natvis>")
 endif()
 
 target_precompile_headers(du PRIVATE "src/pch.h")
@@ -83,10 +83,10 @@ target_precompile_headers(ttLib PRIVATE "src/pch.h")
 
 target_include_directories(du PRIVATE
     src/
-    ../ttLib/include
+    ttLib/include
 )
 
 target_include_directories(ttLib PRIVATE
     src/
-    ../ttLib/include
+    ttLib/include
 )
