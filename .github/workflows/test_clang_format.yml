@@ -1,6 +1,10 @@
 name: clang-format checker
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+    - .github
+
 
 jobs:
   build:
