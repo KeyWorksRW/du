@@ -26,3 +26,8 @@ jobs:
       with:
         name: du
         path: ${{github.workspace}}/build/Release/du.exe
+
+    - name: Download du
+      uses: actions/download-artifact@v2
+      with:
+        name: du
