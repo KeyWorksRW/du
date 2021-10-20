@@ -30,6 +30,11 @@ jobs:
       with:
         submodules: true
 
+    - run: mkdir ${{github.workspace}}/build/Release
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
@@ -54,8 +59,6 @@ jobs:
 
     - run: |
       make bootstrap
-      mkdir ${{github.workspace}}/build/Release
-      cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
       cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Perform CodeQL Analysis
