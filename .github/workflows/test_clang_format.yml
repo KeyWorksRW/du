@@ -1,13 +1,13 @@
-name: clang-format checker
+name: Verify clang-format
 
 on:
   push:
     paths-ignore:
-    - .github/workflows
+      - .github/workflows
 
   pull_request:
     paths-ignore:
-    - .github/workflows
+      - .github/workflows
 
 jobs:
   build:
